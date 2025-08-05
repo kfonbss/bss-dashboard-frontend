@@ -25,8 +25,10 @@ html {
   width: 100vw;
   height: 100vh;
 }
+
 * {
-  scrollbar-width: thin; /* Firefox */
+  scrollbar-width: thin;
+  /* Firefox */
   scrollbar-color: transparent transparent;
   transition: scrollbar-color 0.3s;
 }
@@ -51,7 +53,8 @@ html {
 }
 
 .scrolling {
-  scrollbar-color: rgba(0, 0, 0, 0.4) transparent; /* Firefox */
+  scrollbar-color: rgba(0, 0, 0, 0.4) transparent;
+  /* Firefox */
 }
 
 .container-main {
@@ -143,7 +146,7 @@ html {
 }
 
 .scrollable-container {
-  width: 100%;
+  width: 102%;
   min-height: calc(100vh - 48px);
   height: calc(100vh - 48px);
   max-height: calc(100vh - 48px);
@@ -152,21 +155,29 @@ html {
   flex-direction: column;
   gap: 24px;
   padding: 0 24px 0 0;
+  position: relative;
+}
+
+.sticky-container {
+  position: sticky;
+  padding-bottom: 36px;
+  top: 0;
+  width: calc(100% - 4px);
+  background-color: var(--secondary-color);
 }
 
 .sticky-header {
   display: flex;
-  position: sticky;
   height: 50px;
   border-radius: 100px;
   background-color: var(--white-color);
-  width: calc(100% - 4px);
   align-items: center;
   gap: 18px;
+  width: 100%;
   padding: 0px 2px;
 }
 
-.sticky-header > button {
+.sticky-header>button {
   display: flex;
   justify-content: center;
   height: 37px;
@@ -285,7 +296,7 @@ html {
   height: fit-content;
   display: flex;
   flex-direction: column;
-  margin-top: 22px;
+  margin-top: -22px;
   gap: 10px;
 }
 
@@ -442,14 +453,80 @@ html {
   padding: 24px;
 }
 
-.main-status-details .top,
-.main-status-details .bottom {
+.main-status-details .content {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  border-bottom: 1px solid #e6e9f8;
+}
+
+.main-status-details .content .card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.main-status-details .content .card.border {
+  padding: 0 24px 0 24px;
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.main-status-details .content .card:first-child {
+  padding: 0 24px 0 0;
+}
+
+.main-status-details .content .card:last-child {
+  padding: 0 0 0 24px;
+}
+
+.main-status-details .content .card>p {
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 600;
+  color: var(--text-head);
+  padding: 0;
+  margin: 0;
+}
+
+.main-status-details .content .card .bottom {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: 18px;
+}
+
+.main-status-details .content .card .bottom>div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.main-status-details .content .card .bottom>div>div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.main-status-details .content .card .bottom>div .key {
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 400;
+  color: var(--text-content);
+  padding: 0;
+  margin: 0;
+}
+
+.main-status-details .content .card .bottom>div .value {
+  font-size: 21px;
+  line-height: 21px;
+  font-weight: 600;
+  color: var(--primary-color);
+  padding: 0;
+  margin: 0;
 }
 
 .container-content {
@@ -458,18 +535,23 @@ html {
   max-height: calc(100vh - 48px);
   overflow: auto;
   width: 410px;
-  padding: 24px;
+  padding: 0 24px 24px;
   display: flex;
   flex-direction: column;
   color: var(--white-color);
   gap: 24px;
+  position: relative;
 }
 
 .profile-head {
   display: flex;
+  padding-top: 24px;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  position: sticky;
+  background-color: var(--primary-color);
+  top: 0;
 }
 
 .profile-head p {
@@ -480,12 +562,12 @@ html {
   margin: 0;
 }
 
-.profile-head > div {
+.profile-head>div {
   display: flex;
   gap: 12px;
 }
 
-.profile-head > div button {
+.profile-head>div button {
   padding: 0;
   margin: 0;
   border: none;
@@ -529,13 +611,9 @@ html {
 }
 
 .subscribers-data-box .card {
-  background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   padding: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5.7px);
-  -webkit-backdrop-filter: blur(5.7px);
-  aspect-ratio: 1/1;
+  background-color: var(--white-color);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -571,7 +649,7 @@ html {
 }
 
 .subscribers-data-box .card .top div p:first-child {
-  color: var(--white-color);
+  color: var(--text-head);
   font-size: 14px;
   line-height: 14px;
   font-weight: 500;
@@ -584,7 +662,7 @@ html {
 }
 
 .subscribers-data-box .card .top div p:last-child {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-content);
   font-size: 12px;
   line-height: 12px;
   font-weight: 400;
@@ -606,7 +684,7 @@ html {
   margin: 0;
 }
 
-.subscribers-data-box .card .bottom > div,
+.subscribers-data-box .card .bottom>div,
 .trend-check {
   display: flex;
   justify-content: start;
@@ -630,16 +708,24 @@ html {
   color: var(--decrease-color);
 }
 
-.subscribers-data-box .card .bottom > div > p {
+.subscribers-data-box .card .bottom>div>p {
   font-size: 12px;
   font-weight: 600;
   line-height: 12px;
   padding: 0;
   margin: 0;
-  color: var(--white-color);
+  color: var(--text-content);
 }
 
-.active-govt-subs,
+.active-govt-subs {
+  display: flex;
+  flex-direction: column;
+  background: var(--white-color);
+  border-radius: 20px;
+  padding: 16px;
+  gap: 24px;
+}
+
 .subs-count-chart-box {
   display: flex;
   flex-direction: column;
@@ -650,6 +736,15 @@ html {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5.7px);
   -webkit-backdrop-filter: blur(5.7px);
+}
+
+.subs-count-chart-box p {
+  font-size: 20px;
+  line-height: 20px;
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+  color: var(--white-color);
 }
 
 .active-govt-subs .card {
@@ -664,68 +759,68 @@ html {
   padding: 0;
   margin: 0;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-head);
 }
 
-.active-govt-subs .card > div {
+.active-govt-subs .card>div {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.active-govt-subs .card > div .left,
-.active-govt-subs .card > div .right {
+.active-govt-subs .card>div .left,
+.active-govt-subs .card>div .right {
   display: flex;
   justify-content: start;
   align-items: baseline;
   gap: 14px;
 }
 
-.active-govt-subs .card > div .left > div {
+.active-govt-subs .card>div .left>div {
   display: flex;
   justify-content: start;
   align-items: center;
   gap: 4px;
 }
 
-.active-govt-subs .card > div .left p {
+.active-govt-subs .card>div .left p {
   font-size: 22px;
   line-height: 22px;
   padding: 0;
   margin: 0;
   font-weight: 600;
-  color: var(--white-color);
+  color: var(--text-content);
 }
 
-.active-govt-subs .card > div .left > div > span {
+.active-govt-subs .card>div .left>div>span {
   font-size: 12px;
   line-height: 12px;
   padding: 0;
   margin: 0;
   font-weight: 600;
-  color: var(--white-color);
+  color: var(--text-content);
 }
 
-.active-govt-subs .card > div .right {
+.active-govt-subs .card>div .right {
   gap: 4px;
 }
 
-.active-govt-subs .card > div .right p {
+.active-govt-subs .card>div .right p {
   font-size: 16px;
   line-height: 16px;
   padding: 0;
   margin: 0;
   font-weight: 400;
-  color: var(--white-color);
+  color: var(--text-content);
 }
 
-.active-govt-subs .card > div .right span {
+.active-govt-subs .card>div .right span {
   font-size: 10px;
   line-height: 10px;
   padding: 0;
   margin: 0;
   font-weight: 400;
-  color: #d9d9d9;
+  color: #666666;
 }
 
 .table-container {
@@ -805,6 +900,7 @@ td:last-child {
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
 }
+
 td .dist-box {
   display: flex;
   justify-content: start;
@@ -813,7 +909,7 @@ td .dist-box {
   height: 36px;
 }
 
-td .dist-box > span {
+td .dist-box>span {
   width: 36px;
   height: 36px;
   padding: 0;
