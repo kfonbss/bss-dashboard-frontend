@@ -1,5 +1,3 @@
-const scrollables = new Set();
-
 function observeScroll(el) {
   let timeout;
 
@@ -21,6 +19,27 @@ document.querySelectorAll('*').forEach((el) => {
   if (['auto', 'scroll'].includes(overflowY) || ['auto', 'scroll'].includes(overflowX)) {
     observeScroll(el);
   }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-tabs]').forEach((tabsContainer) => {
+    const buttons = tabsContainer.querySelectorAll('.tab-btn');
+    const panels = tabsContainer.querySelectorAll('.tab-panel');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-tab');
+
+        // Remove active states
+        buttons.forEach((b) => b.classList.remove('active'));
+        panels.forEach((p) => p.classList.remove('active'));
+
+        // Activate clicked button and panel
+        btn.classList.add('active');
+        tabsContainer.querySelector('#' + target).classList.add('active');
+      });
+    });
+  });
 });
 
 const chartIds = ['totalRevenue', 'totalHome', 'bplChart', 'govtSubsChart', 'enterpriseSubsChart'];
