@@ -173,7 +173,8 @@ html {
   background-color: var(--white-color);
   align-items: center;
   gap: 18px;
-  width: 744px;
+  max-width: 744px;
+  width: 100%;
   padding: 0px 2px;
 }
 
@@ -1165,4 +1166,205 @@ td .dist-box .dist-name-box span {
   font-size: 12px;
   line-height: 12px;
   font-weight: 600;
+}
+
+.govt-subs {
+  width: 100%;
+  display: flex;
+  gap: 24px;
+}
+
+.govt-subs .govt-subs-data {
+  width: 30%;
+  background-color: var(--white-color);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.govt-subs .govt-subs-data .card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background-color: #f6f6f6;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.govt-subs .govt-subs-data>.head {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  padding: 0;
+  margin: 0;
+  color: var(--primary-color);
+}
+
+.govt-subs .govt-subs-data .card>.head {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 14px;
+  padding: 0;
+  margin: 0;
+  color: #000;
+  opacity: 80%;
+}
+
+.govt-subs .govt-subs-data .card div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.govt-subs .govt-subs-data .card .till-now .value {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 22px;
+  padding: 0;
+  margin: 0;
+  color: #000;
+}
+
+.govt-subs .govt-subs-data .card .till-now>span {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 12px;
+  gap: 4px;
+  font-weight: 600;
+  line-height: 12px;
+  padding: 0;
+  margin: 0;
+  color: #000;
+}
+
+.govt-subs .govt-subs-data .card .till-yesterday .value {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+  padding: 0;
+  margin: 0;
+  color: #000;
+}
+
+.govt-subs .govt-subs-data .card .till-yesterday span {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 10px;
+  padding: 0;
+  margin: 0;
+  color: #000;
+}
+
+.govt-subs .govt-subs-data .card .till-now>span span {
+  color: #61cd82;
+}
+
+.govt-subs .new-subs-month-wise {
+  width: 70%;
+  background-color: var(--white-color);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.govt-subs .new-subs-month-wise .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.govt-subs .new-subs-month-wise .header p {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  padding: 0;
+  margin: 0;
+  color: var(--primary-color);
+}
+
+.govt-subs .new-subs-month-wise canvas {
+  height: 300px !important;
+}
+
+.filter-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Hide radio controllers */
+.filter-toggle {
+  display: none;
+}
+
+/* Trigger button */
+.filter-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--btn);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  user-select: none;
+}
+
+.filter-label:hover {
+  background: var(--btn-hover);
+}
+
+/* Menu */
+.filter-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 200px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: 8px 0;
+  z-index: 10;
+}
+
+.filter-menu label {
+  display: block;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.filter-menu label:hover {
+  background: #f5f5f5;
+}
+
+.filter-menu input {
+  margin-right: 8px;
+}
+
+/* Show menu when this dropdown's radio is checked */
+.filter-toggle:checked+.filter-label+.filter-menu {
+  display: block;
+}
+
+/* Full-page overlay that closes the dropdown when clicked */
+.filter-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  /* below menu, above page */
+  background: transparent;
+  /* clickable but invisible */
+}
+
+/* Show overlay only when this dropdown is open */
+.filter-toggle:checked~.filter-overlay {
+  display: block;
 }

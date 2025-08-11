@@ -323,7 +323,7 @@
                     </span>
                   </div>
                   <div class="tab-panel" id="phase2">
-                    <p class="value">31092</p>
+                    <p class="value">1242</p>
                     <span>
                       <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -383,7 +383,7 @@
                     </span>
                   </div>
                   <div class="tab-panel" id="mspAsLnp">
-                    <p class="value">31092</p>
+                    <p class="value">1242</p>
                     <span>
                       <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -404,6 +404,7 @@
 
         <div class="govt-subs">
           <div class="govt-subs-data">
+            <p class="head">Government Subscribers</p>
             <div class="card">
               <p class="head">Active Govt. Subscribers (SI Connection)</p>
               <div>
@@ -477,11 +478,99 @@
               </div>
             </div>
           </div>
+
+          <div class="new-subs-month-wise">
+            <div class="header">
+              <p>New Subscribers Month Wise</p>
+              <div>
+                <select id="fruit" name="fruit">
+                  <option value="">-- Select an option --</option>
+                  <option value="apple">Apple</option>
+                  <option value="banana">Banana</option>
+                  <option value="orange">Orange</option>
+                  <option value="mango">Mango</option>
+                </select>
+                <div class="filter-dropdown">
+                  <input type="radio" name="filter-group" id="filter1" class="filter-toggle" />
+                  <label for="filter1" class="filter-label">🔍 Filter</label>
+                  <div class="filter-menu">
+                    <label><input type="checkbox" value="fruit" /> Fruit</label>
+                    <label><input type="checkbox" value="vegetable" /> Vegetable</label>
+                    <label><input type="checkbox" value="dairy" /> Dairy</label>
+                  </div>
+                  <!-- Clicking this overlay selects #none (closing all) -->
+                  <label for="none" class="filter-overlay" aria-hidden="true"></label>
+                </div>
+              </div>
+            </div>
+            <canvas height="400" id="wavyChart"></canvas>
+          </div>
         </div>
       </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+      const ctx = document.getElementById('wavyChart').getContext('2d');
+
+      // Create a vertical gradient fill
+      const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+      gradient.addColorStop(0, 'rgba(13, 231, 185, 0.40)'); // top ~40% opacity
+      gradient.addColorStop(1, 'rgba(13, 231, 185, 0.00)'); // bottom 0%
+
+      // Generate static "wave" data
+      const labels = Array.from({ length: 60 }, (_, i) => i + 1);
+      const data = labels.map((x) => {
+        const rad = (x / 60) * Math.PI * 4; // 2 full waves
+        return 50 + 18 * Math.sin(rad) + 6 * Math.sin(rad * 2);
+      });
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [
+            {
+              label: 'Signal',
+              data,
+              borderColor: '#0DE7B9',
+              backgroundColor: gradient,
+              borderWidth: 2.5,
+              fill: true,
+              tension: 0.5, // makes it wavy
+              pointRadius: 0, // no dots
+              cubicInterpolationMode: 'monotone' // smooth curve
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(12, 18, 32, 0.9)',
+              titleColor: '#cfe6ff',
+              bodyColor: '#e6f5ff',
+              borderColor: 'rgba(255,255,255,.2)',
+              borderWidth: 1
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: '#7f93b6' }
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.06)' },
+              ticks: { color: '#7f93b6' }
+            }
+          }
+        }
+      });
+    </script>
+
     <script src="./main.js"></script>
   </body>
 </html>
