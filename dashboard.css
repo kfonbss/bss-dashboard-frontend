@@ -13,6 +13,15 @@
   --secondary-color: #edf1fa;
   --increase-color: #33cccc;
   --decrease-color: #f27649;
+
+  /* TABLE DEFAULTS */
+  --row-alt: #f6f8fb;
+  --border: #e9edf3;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --accent: #7a0c38;
+  --accent-pressed: #5e0a2c;
+  --radius: 14px;
 }
 
 body,
@@ -970,6 +979,7 @@ td .dist-box .dist-name-box span {
   flex-direction: column;
   position: relative;
   gap: 24px;
+  overflow: auto;
 }
 
 .right-container .sticky-header-container {
@@ -989,6 +999,14 @@ td .dist-box .dist-name-box span {
   justify-content: flex-end;
   padding-top: 0;
 }
+
+.right-container .sticky-header-container .profile-head .notification,
+.right-container .sticky-header-container .profile-head>div button {
+  box-shadow: none;
+  background-color: var(--white-color);
+}
+
+
 
 .right-container .sticky-header-container .profile-head .notification path {
   fill: #bcbcbc;
@@ -1292,79 +1310,339 @@ td .dist-box .dist-name-box span {
   height: 300px !important;
 }
 
+.govt-subs .new-subs-month-wise .header>div {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.chart-table-dropdown {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  min-width: 180px;
+  padding: 0 12px;
+  background-color: white;
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 500;
+  color: #4b5563;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* Custom arrow */
+  background-image: url("data:image/svg+xml;utf8,<svg width='14' height='8' viewBox='0 0 14 8' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M6.99917 7.52085C6.83917 7.52085 6.67914 7.46004 6.55747 7.33754L0.724141 1.50421C0.479974 1.26004 0.479974 0.864181 0.724141 0.620015C0.968307 0.375848 1.36417 0.375848 1.60834 0.620015L6.99998 6.01166L12.3916 0.620015C12.6358 0.375848 13.0317 0.375848 13.2758 0.620015C13.52 0.864181 13.52 1.26004 13.2758 1.50421L7.44248 7.33754C7.31915 7.46004 7.15917 7.52085 6.99917 7.52085Z' fill='%234B5563'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+/* Wrap all dropdowns in .filters */
+.filters {
+  position: relative;
+}
+
 .filter-dropdown {
   position: relative;
   display: inline-block;
+  height: 40px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0 12px;
 }
 
-/* Hide radio controllers */
-.filter-toggle {
+.filter-btn {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  color: var(--text-content);
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 400;
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
+.filter-btn .count {
+  background: #fff;
+  color: var(--btn);
+  padding: 0 8px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 12px;
   display: none;
 }
 
-/* Trigger button */
-.filter-label {
-  display: inline-flex;
+.filter-btn.has-count .count {
+  display: inline-block;
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 1000;
+  min-width: 220px;
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  padding: 8px 0;
+  display: none;
+}
+
+.menu.open {
+  display: block;
+}
+
+.menu .section {
+  padding: 8px 14px;
+  font-weight: 600;
+  border-bottom: 1px solid #f1f3f5;
+}
+
+.menu .item {
+  display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.menu .item:hover {
+  background: #f8f9fa;
+}
+
+.menu .actions {
+  display: flex;
+  gap: 8px;
+  padding: 10px 14px;
+  border-top: 1px solid #f1f3f5;
+}
+
+.menu .actions button {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  background: #fff;
+  cursor: pointer;
+}
+
+.menu .actions .apply {
   background: var(--btn);
   color: #fff;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
+  border-color: var(--btn);
+}
+
+.top-dbs-and-activation {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+}
+
+.new-activation {
+  width: calc(100% - 40px);
+  background-color: var(--white-color);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.top-dbs-and-activation .top-dbs {
+  width: 35%;
+  background-color: var(--white-color);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.top-dbs-and-activation .top-dbs .header,
+.top-dbs-and-activation .activation .header,
+.new-activation .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-dbs-and-activation .top-dbs .header .head,
+.top-dbs-and-activation .activation .header .head,
+.new-activation .head {
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.top-dbs-and-activation .top-dbs .header>div,
+.top-dbs-and-activation .activation .header>div,
+.new-activation .header>div {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  align-items: center;
+}
+
+.top-dbs-and-activation .activation {
+  width: 65%;
+  background-color: var(--white-color);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.table-card {
+  border: 1px solid var(--border);
+  border-radius: 14px
+}
+
+/* Table */
+.table-card .table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table-card .table thead th {
+  background: var(--header-bg);
+  color: #fff;
+  text-align: left;
+  font-weight: 700;
+  padding: 0 18px;
+  height: 50px;
+  font-size: 15px;
+}
+
+.table-card .table tbody td {
+  border-top: 1px solid var(--border);
   font-size: 14px;
-  user-select: none;
+  font-weight: 400;
+  color: #000 !important;
+  background-color: transparent;
 }
 
-.filter-label:hover {
-  background: var(--btn-hover);
+.table-card .table tbody tr:nth-child(even) {
+  background: var(--row-alt);
 }
 
-/* Menu */
-.filter-menu {
-  display: none;
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
-  min-width: 200px;
+.table-card td:first-child {
+  border-radius: 0 !important;
+}
+
+.table-card td:last-child {
+  border-radius: 0 !important;
+}
+
+/* Make first and last row corners slightly rounded like the screenshot */
+.table-card .table thead th:first-child {
+  padding-left: 22px;
+  border-top-left-radius: 14px;
+}
+
+.table-card .table thead th:last-child {
+  border-top-right-radius: 14px;
+}
+
+.table-card .table tbody td:first-child {
+  padding-left: 22px;
+  border-bottom-left-radius: 14px;
+}
+
+.table-card .table thead th:last-child,
+.table-card .table tbody td:last-child {
+  padding-right: 22px;
+}
+
+.table-card .table tbody td:last-child {
+  border-bottom: 1px solid var(--border);
+  border-bottom-right-radius: 14px;
+}
+
+/* Footer */
+.table-footer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.entries {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.entries .muted {
+  color: var(--muted);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  padding: 8px 0;
-  z-index: 10;
-}
-
-.filter-menu label {
-  display: block;
-  padding: 8px 14px;
+  color: #111827;
   cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  transition: transform 0.06s ease, background 0.2s ease;
 }
 
-.filter-menu label:hover {
-  background: #f5f5f5;
+.page-btn:hover {
+  background: #f3f4f6;
 }
 
-.filter-menu input {
-  margin-right: 8px;
+.page-btn:active {
+  transform: translateY(1px);
 }
 
-/* Show menu when this dropdown's radio is checked */
-.filter-toggle:checked+.filter-label+.filter-menu {
-  display: block;
+.page-current {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: inline-grid;
+  place-items: center;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  border: 1px solid var(--accent);
 }
 
-/* Full-page overlay that closes the dropdown when clicked */
-.filter-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 5;
-  /* below menu, above page */
-  background: transparent;
-  /* clickable but invisible */
+.page-btn[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
-/* Show overlay only when this dropdown is open */
-.filter-toggle:checked~.filter-overlay {
-  display: block;
+.chart-card {
+  height: 400px;
 }
