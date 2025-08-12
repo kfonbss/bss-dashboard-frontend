@@ -171,7 +171,6 @@ if (![undefined, null, ''].includes(liveSubscribersChart)) {
 }
 
 const newSubsChart = document.getElementById('newSubsChart');
-
 if (![undefined, null, ''].includes(newSubsChart)) {
   const newSubsChartCtx = newSubsChart.getContext('2d');
 
@@ -324,32 +323,37 @@ const barData = [62, 12, 8, 18, 14, 26, 11, 31, 13, 26, 12, 27, 7, 16];
 const lineData = [36, 11, 7, 16, 13, 25, 10, 22, 9, 13, 11, 25, 6, 12];
 
 const districtChart = document.getElementById('districtChart');
-
-if (![undefined, null, ''].includes(districtChart)) {
+if (districtChart) {
   const districtChartCtx = districtChart.getContext('2d');
 
-  // Custom plugin to draw a horizontal line at a given value
-  const thresholdValue = 25; // 25k
+  const thresholdValue = 25;
+
   const thresholdPlugin = {
     id: 'thresholdLine',
     afterDatasetsDraw(chart, args, pluginOptions) {
-      const {
-        districtChartCtx,
-        chartArea,
-        scales: { y }
-      } = chart;
+      const area = chart?.chartArea;
+      const ctx = chart?.ctx;
+      if (!ctx || !area) return; // not laid out yet
+
+      const y = chart.scales.y || Object.values(chart.scales).find((s) => s.axis === 'y');
+      if (!y) return;
+
       const yPos = y.getPixelForValue(thresholdValue);
-      districtChartCtx.save();
-      districtChartCtx.strokeStyle = pluginOptions.color || '#1486FF';
-      districtChartCtx.lineWidth = pluginOptions.lineWidth || 3;
-      districtChartCtx.beginPath();
-      districtChartCtx.moveTo(chartArea.left, yPos);
-      districtChartCtx.lineTo(chartArea.right, yPos);
-      districtChartCtx.stroke();
-      districtChartCtx.restore();
+      if (!Number.isFinite(yPos)) return;
+
+      ctx.save();
+      ctx.strokeStyle = pluginOptions?.color || '#1486FF';
+      ctx.lineWidth = pluginOptions?.lineWidth || 3;
+      ctx.setLineDash(pluginOptions?.dash || []);
+      ctx.beginPath();
+      ctx.moveTo(area.left, yPos);
+      ctx.lineTo(area.right, yPos);
+      ctx.stroke();
+      ctx.restore();
     }
   };
 
+  // Build the chart
   new Chart(districtChartCtx, {
     type: 'bar',
     data: {
@@ -371,18 +375,15 @@ if (![undefined, null, ''].includes(districtChart)) {
       ],
       datasets: [
         {
-          // Background bars
           type: 'bar',
           data: barData,
           borderSkipped: false,
           borderRadius: 12,
           barPercentage: 0.52,
           categoryPercentage: 0.8,
-          backgroundColor: (context) => {
-            const { chart, dataIndex } = context;
+          backgroundColor: ({ chart, dataIndex }) => {
             const { ctx, chartArea } = chart;
             if (!chartArea) return '#E9EDF3';
-            // Highlight DIS 8 (index 7) with a vertical gradient
             if (dataIndex === 7) {
               const grad = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
               grad.addColorStop(0, 'rgba(122,12,56,0.85)');
@@ -390,11 +391,10 @@ if (![undefined, null, ''].includes(districtChart)) {
               grad.addColorStop(1, 'rgba(122,12,56,0.00)');
               return grad;
             }
-            return 'rgba(10,15,30,0.06)'; // soft grey bars
+            return 'rgba(10,15,30,0.06)';
           }
         },
         {
-          // Line on top
           type: 'line',
           data: lineData,
           borderColor: getComputedStyle(document.documentElement).getPropertyValue('--maroon').trim() || '#7A0C38',
@@ -414,10 +414,7 @@ if (![undefined, null, ''].includes(districtChart)) {
       scales: {
         x: {
           grid: { display: false },
-          ticks: {
-            color: '#1f2937',
-            font: { size: 12 }
-          }
+          ticks: { color: '#1f2937', font: { size: 12 } }
         },
         y: {
           suggestedMin: 0,
@@ -441,11 +438,258 @@ if (![undefined, null, ''].includes(districtChart)) {
         },
         thresholdLine: {
           color: getComputedStyle(document.documentElement).getPropertyValue('--threshold').trim() || '#1486FF',
-          lineWidth: 3
+          lineWidth: 3,
+          dash: [6, 6] // optional
         }
       },
       interaction: { intersect: false, mode: 'index' }
     },
     plugins: [thresholdPlugin]
+  });
+}
+
+const newSubscriberAdditionChart = document.getElementById('newSubscriberAdditionChart');
+if (newSubscriberAdditionChart) {
+  const newSubscriberAdditionChartCtx = newSubscriberAdditionChart.getContext('2d');
+
+  const thresholdValue = 25;
+
+  const thresholdPlugin = {
+    id: 'thresholdLine',
+    afterDatasetsDraw(chart, args, pluginOptions) {
+      const area = chart?.chartArea;
+      const ctx = chart?.ctx;
+      if (!ctx || !area) return; // not laid out yet
+
+      const y = chart.scales.y || Object.values(chart.scales).find((s) => s.axis === 'y');
+      if (!y) return;
+
+      const yPos = y.getPixelForValue(thresholdValue);
+      if (!Number.isFinite(yPos)) return;
+
+      ctx.save();
+      ctx.strokeStyle = pluginOptions?.color || '#1486FF';
+      ctx.lineWidth = pluginOptions?.lineWidth || 3;
+      ctx.setLineDash(pluginOptions?.dash || []);
+      ctx.beginPath();
+      ctx.moveTo(area.left, yPos);
+      ctx.lineTo(area.right, yPos);
+      ctx.stroke();
+      ctx.restore();
+    }
+  };
+
+  // Build the chart
+  new Chart(newSubscriberAdditionChartCtx, {
+    type: 'bar',
+    data: {
+      labels: [
+        'DIS 1',
+        'DIS 2',
+        'DIS 3',
+        'DIS 4',
+        'DIS 5',
+        'DIS 6',
+        'DIS 7',
+        'DIS 8',
+        'DIS 9',
+        'DIS 10',
+        'DIS 11',
+        'DIS 12',
+        'DIS 13',
+        'DIS 14'
+      ],
+      datasets: [
+        {
+          type: 'bar',
+          data: barData,
+          borderSkipped: false,
+          borderRadius: 12,
+          barPercentage: 0.52,
+          categoryPercentage: 0.8,
+          backgroundColor: ({ chart, dataIndex }) => {
+            const { ctx, chartArea } = chart;
+            if (!chartArea) return '#E9EDF3';
+            if (dataIndex === 7) {
+              const grad = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+              grad.addColorStop(0, 'rgba(122,12,56,0.85)');
+              grad.addColorStop(0.55, 'rgba(122,12,56,0.35)');
+              grad.addColorStop(1, 'rgba(122,12,56,0.00)');
+              return grad;
+            }
+            return 'rgba(10,15,30,0.06)';
+          }
+        },
+        {
+          type: 'line',
+          data: lineData,
+          borderColor: getComputedStyle(document.documentElement).getPropertyValue('--maroon').trim() || '#7A0C38',
+          backgroundColor: 'transparent',
+          borderWidth: 3,
+          tension: 0.25,
+          pointRadius: 5,
+          pointHoverRadius: 6,
+          pointBackgroundColor: '#ffffff',
+          pointBorderColor: getComputedStyle(document.documentElement).getPropertyValue('--maroon').trim() || '#7A0C38',
+          pointBorderWidth: 3
+        }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: '#1f2937', font: { size: 12 } }
+        },
+        y: {
+          suggestedMin: 0,
+          suggestedMax: 100,
+          grid: {
+            color: (ctx) => (ctx.tick.value === 0 ? 'transparent' : 'rgba(0,0,0,0.06)'),
+            borderDash: [4, 4]
+          },
+          ticks: {
+            color: '#6b7280',
+            callback: (v) => (v === 0 ? '0' : v + 'k')
+          }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => `${ctx.dataset.type === 'line' ? 'Line' : 'Value'}: ${ctx.parsed.y}k`
+          }
+        },
+        thresholdLine: {
+          color: getComputedStyle(document.documentElement).getPropertyValue('--threshold').trim() || '#1486FF',
+          lineWidth: 3,
+          dash: [6, 6] // optional
+        }
+      },
+      interaction: { intersect: false, mode: 'index' }
+    },
+    plugins: [thresholdPlugin]
+  });
+}
+
+const targetActualTargetChart = document.getElementById('targetActualTargetChart');
+if (targetActualTargetChart) {
+  const targetActualTargetChartCtx = targetActualTargetChart.getContext('2d');
+
+  // Optional: soft shadow under the lines
+  const lineShadow = {
+    id: 'lineShadow',
+    beforeDatasetsDraw(chart) {
+      const { ctx } = chart;
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,.18)';
+      ctx.shadowBlur = 12;
+      ctx.shadowOffsetY = 6;
+    },
+    afterDatasetsDraw(chart) {
+      chart.ctx.restore();
+    }
+  };
+
+  const maroon = getComputedStyle(document.documentElement).getPropertyValue('--maroon').trim() || '#7A0C38';
+  const amber = getComputedStyle(document.documentElement).getPropertyValue('--amber').trim() || '#F59E0B';
+  const axis = getComputedStyle(document.documentElement).getPropertyValue('--axis').trim() || '#111827';
+  const grid = getComputedStyle(document.documentElement).getPropertyValue('--grid').trim() || 'rgba(0,0,0,.12)';
+
+  // sample data (k units)
+  const dataA = [6, 14, 10, 26, 12, 50, 18, 30, 12, 28, 15, 22];
+  const dataB = [6, 10, 8, 18, 10, 28, 12, 18, 10, 20, 12, 16];
+
+  new Chart(targetActualTargetChartCtx, {
+    type: 'line',
+    data: {
+      // Labels set directly here (your request)
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      datasets: [
+        {
+          label: 'Example',
+          data: dataA,
+          borderColor: maroon,
+          borderWidth: 4,
+          tension: 0.45,
+          fill: false,
+          pointRadius: 0, // hidden by default
+          pointHoverRadius: 7, // visible on hover only
+          pointHoverBackgroundColor: '#ffffff', // hollow center
+          pointHoverBorderColor: maroon, // ring color
+          pointHoverBorderWidth: 4 // ring thickness
+        },
+        {
+          label: 'Example',
+          data: dataB,
+          borderColor: amber,
+          borderWidth: 4,
+          tension: 0.45,
+          fill: false,
+          pointRadius: 0,
+          pointHoverRadius: 7,
+          pointHoverBackgroundColor: '#ffffff',
+          pointHoverBorderColor: amber,
+          pointHoverBorderWidth: 4
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          usePointStyle: true,
+          displayColors: true,
+          backgroundColor: '#fff',
+          titleColor: '#111827',
+          bodyColor: '#111827',
+          borderColor: 'rgba(0,0,0,.08)',
+          borderWidth: 1,
+          padding: 12,
+          callbacks: {
+            title: (items) => `${items[0].label} 2024`,
+            labelPointStyle: (ctx) => ({
+              pointStyle: 'circle',
+              rotation: 0,
+              borderWidth: 0,
+              backgroundColor: ctx.dataset.borderColor
+            }),
+            label: (ctx) => ` ${ctx.dataset.label} : $${ctx.parsed.y}k`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: {
+            color: (tickCtx) => (tickCtx.tick.label === 'Jul' ? maroon : axis),
+            font: (tickCtx) => ({
+              size: 14,
+              weight: tickCtx.tick.label === 'Jul' ? '700' : '400'
+            })
+          }
+        },
+        y: {
+          beginAtZero: true,
+          suggestedMax: 100,
+          ticks: {
+            stepSize: 25,
+            color: axis,
+            callback: (v) => (v === 0 ? '0' : `$${v}k`)
+          },
+          grid: {
+            drawBorder: false,
+            color: (gctx) => (gctx.tick.value === 0 ? 'transparent' : grid),
+            borderDash: [2, 6]
+          }
+        }
+      }
+    },
+    plugins: [lineShadow]
   });
 }

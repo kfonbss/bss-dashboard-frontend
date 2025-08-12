@@ -1008,7 +1008,7 @@
 
       <div class="new-activation">
         <div class="header">
-          <p class="head">New Activation</p>
+          <p class="head">New Subscriber Addition</p>
           <div>
             <div class="filter-dropdown" data-filter-id="products">
               <button class="filter-btn" type="button" aria-haspopup="menu" aria-expanded="false">
@@ -1046,7 +1046,7 @@
             </select>
           </div>
         </div>
-        <div class="table-card" style="--header-bg: #DE3B7A">
+        <div class="table-card" style="--header-bg: #C0CC08">
           <table class="table">
             <thead>
               <tr>
@@ -1055,7 +1055,7 @@
                 <th>Yesterday</th>
                 <th>Current Month</th>
                 <th>Last Month</th>
-                <th>Till Now</th>
+                <th>Current Year</th>
               </tr>
             </thead>
             <tbody>
@@ -1113,6 +1113,235 @@
             <div class="page-current" aria-current="page">1</div>
             <button class="page-btn" aria-label="Next page">»</button>
           </nav>
+        </div>
+
+        <div class="chart-card">
+          <canvas height="400" id="newSubscriberAdditionChart"></canvas>
+        </div>
+      </div>
+
+      <div class="greeting-text">
+        <p class="greeting">New Subscribers Enquiry</p>
+        <p class="simple">Let’s see your Subscribers Enquiry</p>
+      </div>
+
+      <div class="total-enquiry-container">
+        <div class="total-enquiry">
+          <p class="key">Total Enquiry</p>
+          <p class="value">1000</p>
+        </div>
+        <div class="other-enquiry">
+          <div>
+            <p class="key">Home Enquiry</p>
+            <p class="value">1000</p>
+          </div>
+          <div>
+            <p class="key">EWS Enquiry</p>
+            <p class="value">1000</p>
+          </div>
+          <div>
+            <p class="key">Corporate Enquiry</p>
+            <p class="value">1000</p>
+          </div>
+          <div>
+            <p class="key">GOVT Enquiry</p>
+            <p class="value">1000</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="enquiry-grid-container">
+        <div class="div1" style="--enquiry-card-bg: #CB3879">
+          <div class="top-box">
+            <p class="key">Open Enquiry</p>
+            <p class="value">5000</p>
+          </div>
+          <div class="enquiry-type">
+            <div class="border-right border-bottom">
+              <p class="key">Home Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div class="border-bottom">
+              <p class="key">EWS Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div class="border-right">
+              <p class="key">Corporate Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div>
+              <p class="key">GOVT Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+          </div>
+        </div>
+        <div class="div2" style="--enquiry-card-bg: #C3D74C">
+          <div class="top-box">
+            <p class="key">Connected Enquiry</p>
+            <p class="value">5000</p>
+          </div>
+          <div class="enquiry-type">
+            <div class="border-right border-bottom">
+              <p class="key">Home Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div class="border-bottom">
+              <p class="key">EWS Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div class="border-right">
+              <p class="key">Corporate Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div>
+              <p class="key">GOVT Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+          </div>
+        </div>
+        <div class="div3" style="--enquiry-card-bg: #60B9C6">
+          <div class="top-box">
+            <p class="key">Not Possible</p>
+            <p class="value">5000</p>
+          </div>
+          <div class="enquiry-type">
+            <div class="border-right border-bottom">
+              <p class="key">Home Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div class="border-bottom">
+              <p class="key">EWS Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div class="border-right">
+              <p class="key">Corporate Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div>
+              <p class="key">GOVT Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+          </div>
+        </div>
+        <div class="div4" style="--enquiry-card-bg: #8D0247">
+          <div class="top-box">
+            <p class="key">Forwarded to LNP</p>
+            <p class="value">5000</p>
+          </div>
+          <div class="enquiry-type">
+            <div class="border-right border-bottom">
+              <p class="key">Home Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div class="border-bottom">
+              <p class="key">EWS Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div class="border-right">
+              <p class="key">Corporate Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div>
+              <p class="key">GOVT Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+          </div>
+        </div>
+        <div class="div5" style="--enquiry-card-bg: #8D0247">
+          <div class="top-box">
+            <p class="key">Forwarded to RDC</p>
+            <p class="value">5000</p>
+          </div>
+          <div class="enquiry-type">
+            <div class="border-right border-bottom">
+              <p class="key">Home Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div class="border-bottom">
+              <p class="key">EWS Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div class="border-right">
+              <p class="key">Corporate Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div>
+              <p class="key">GOVT Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+          </div>
+        </div>
+        <div class="div6" style="--enquiry-card-bg: #8D0247">
+          <div class="top-box">
+            <p class="key">Forwarded to FE</p>
+            <p class="value">5000</p>
+          </div>
+          <div class="enquiry-type">
+            <div class="border-right border-bottom">
+              <p class="key">Home Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div class="border-bottom">
+              <p class="key">EWS Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div class="border-right">
+              <p class="key">Corporate Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div>
+              <p class="key">GOVT Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+          </div>
+        </div>
+        <div class="div7" style="--enquiry-card-bg: #8D0247">
+          <div class="top-box">
+            <p class="key">LNP Not Willing to Connect</p>
+            <p class="value">5000</p>
+          </div>
+          <div class="enquiry-type">
+            <div class="border-right border-bottom">
+              <p class="key">Home Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div class="border-bottom">
+              <p class="key">EWS Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div class="border-right">
+              <p class="key">Corporate Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+            <div>
+              <p class="key">GOVT Enquiry</p>
+              <p class="value">5000</p>
+            </div>
+          </div>
+        </div>
+        <div class="div8 new-activation">
+          <div class="header">
+            <p class="head">Target VS Actual Target</p>
+            <div>
+              <select class="chart-table-dropdown">
+                <option value="">Sub Type</option>
+                <option value="apple">Apple</option>
+                <option value="banana">Banana</option>
+                <option value="orange">Orange</option>
+                <option value="mango">Mango</option>
+              </select>
+              <select class="chart-table-dropdown">
+                <option value="">Sub Type</option>
+                <option value="apple">Apple</option>
+                <option value="banana">Banana</option>
+                <option value="orange">Orange</option>
+                <option value="mango">Mango</option>
+              </select>
+            </div>
+          </div>
+          <div class="chart-card" style="height: 300px;">
+            <canvas style="height: 300px;" id="targetActualTargetChart"></canvas>
+          </div>
         </div>
       </div>
     </div>
