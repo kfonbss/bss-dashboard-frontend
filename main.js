@@ -693,3 +693,129 @@ if (targetActualTargetChart) {
     plugins: [lineShadow]
   });
 }
+
+const districtWiseActivePartnerChart = document.getElementById('districtWiseActivePartnerChart');
+if (districtWiseActivePartnerChart) {
+  const districtWiseActivePartnerChartCtx = districtWiseActivePartnerChart.getContext('2d');
+
+  const thresholdValue = 25;
+
+  const thresholdPlugin = {
+    id: 'thresholdLine',
+    afterDatasetsDraw(chart, args, pluginOptions) {
+      const area = chart?.chartArea;
+      const ctx = chart?.ctx;
+      if (!ctx || !area) return; // not laid out yet
+
+      const y = chart.scales.y || Object.values(chart.scales).find((s) => s.axis === 'y');
+      if (!y) return;
+
+      const yPos = y.getPixelForValue(thresholdValue);
+      if (!Number.isFinite(yPos)) return;
+
+      ctx.save();
+      ctx.strokeStyle = pluginOptions?.color || '#1486FF';
+      ctx.lineWidth = pluginOptions?.lineWidth || 3;
+      ctx.setLineDash(pluginOptions?.dash || []);
+      ctx.beginPath();
+      ctx.moveTo(area.left, yPos);
+      ctx.lineTo(area.right, yPos);
+      ctx.stroke();
+      ctx.restore();
+    }
+  };
+
+  // Build the chart
+  new Chart(districtWiseActivePartnerChartCtx, {
+    type: 'bar',
+    data: {
+      labels: [
+        'DIS 1',
+        'DIS 2',
+        'DIS 3',
+        'DIS 4',
+        'DIS 5',
+        'DIS 6',
+        'DIS 7',
+        'DIS 8',
+        'DIS 9',
+        'DIS 10',
+        'DIS 11',
+        'DIS 12',
+        'DIS 13',
+        'DIS 14'
+      ],
+      datasets: [
+        {
+          type: 'bar',
+          data: barData,
+          borderSkipped: false,
+          borderRadius: 12,
+          barPercentage: 0.52,
+          categoryPercentage: 0.8,
+          backgroundColor: ({ chart, dataIndex }) => {
+            const { ctx, chartArea } = chart;
+            if (!chartArea) return '#E9EDF3';
+            if (dataIndex === 7) {
+              const grad = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+              grad.addColorStop(0, 'rgba(122,12,56,0.85)');
+              grad.addColorStop(0.55, 'rgba(122,12,56,0.35)');
+              grad.addColorStop(1, 'rgba(122,12,56,0.00)');
+              return grad;
+            }
+            return 'rgba(10,15,30,0.06)';
+          }
+        },
+        {
+          type: 'line',
+          data: lineData,
+          borderColor: getComputedStyle(document.documentElement).getPropertyValue('--maroon').trim() || '#7A0C38',
+          backgroundColor: 'transparent',
+          borderWidth: 3,
+          tension: 0.25,
+          pointRadius: 5,
+          pointHoverRadius: 6,
+          pointBackgroundColor: '#ffffff',
+          pointBorderColor: getComputedStyle(document.documentElement).getPropertyValue('--maroon').trim() || '#7A0C38',
+          pointBorderWidth: 3
+        }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: '#1f2937', font: { size: 12 } }
+        },
+        y: {
+          suggestedMin: 0,
+          suggestedMax: 100,
+          grid: {
+            color: (ctx) => (ctx.tick.value === 0 ? 'transparent' : 'rgba(0,0,0,0.06)'),
+            borderDash: [4, 4]
+          },
+          ticks: {
+            color: '#6b7280',
+            callback: (v) => (v === 0 ? '0' : v + 'k')
+          }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => `${ctx.dataset.type === 'line' ? 'Line' : 'Value'}: ${ctx.parsed.y}k`
+          }
+        },
+        thresholdLine: {
+          color: getComputedStyle(document.documentElement).getPropertyValue('--threshold').trim() || '#1486FF',
+          lineWidth: 3,
+          dash: [6, 6] // optional
+        }
+      },
+      interaction: { intersect: false, mode: 'index' }
+    },
+    plugins: [thresholdPlugin]
+  });
+}

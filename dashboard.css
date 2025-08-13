@@ -1011,8 +1011,6 @@ td .dist-box .dist-name-box span {
   background-color: var(--white-color);
 }
 
-
-
 .right-container .sticky-header-container .profile-head .notification path {
   fill: #bcbcbc;
 }
@@ -1518,7 +1516,7 @@ td .dist-box .dist-name-box span {
 
 .table-card {
   border: 1px solid var(--border);
-  border-radius: 14px
+  border-radius: 14px;
 }
 
 /* Table */
@@ -1716,35 +1714,35 @@ td .dist-box .dist-name-box span {
   grid-row-gap: 26px;
 }
 
-.div1 {
+.enquiry-grid-container .div1 {
   grid-area: 1 / 1 / 2 / 2;
 }
 
-.div2 {
+.enquiry-grid-container .div2 {
   grid-area: 1 / 2 / 2 / 3;
 }
 
-.div3 {
+.enquiry-grid-container .div3 {
   grid-area: 1 / 3 / 2 / 4;
 }
 
-.div4 {
+.enquiry-grid-container .div4 {
   grid-area: 2 / 1 / 3 / 2;
 }
 
-.div5 {
+.enquiry-grid-container .div5 {
   grid-area: 2 / 2 / 3 / 3;
 }
 
-.div6 {
+.enquiry-grid-container .div6 {
   grid-area: 2 / 3 / 3 / 4;
 }
 
-.div7 {
+.enquiry-grid-container .div7 {
   grid-area: 3 / 1 / 4 / 2;
 }
 
-.div8 {
+.enquiry-grid-container .div8 {
   grid-area: 3 / 2 / 4 / 4;
 }
 
@@ -1805,4 +1803,182 @@ td .dist-box .dist-name-box span {
 
 .enquiry-grid-container .enquiry-type .border-bottom {
   border-bottom: 1px solid var(--border-color);
+}
+
+.lnp-enquiries {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
+.lnp-enquiries .card {
+  background-color: var(--white-color);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.lnp-enquiries .card .top {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+}
+
+.lnp-enquiries .card .top .key {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  padding: 0;
+  margin: 0;
+}
+
+.lnp-enquiries .card .bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lnp-enquiries .card .bottom .key {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 24px;
+  padding: 0;
+  margin: 0;
+}
+
+.lnp-enquiries .card .bottom span {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 12px;
+}
+
+.lnp-enquiries .card .bottom span span {
+  color: #61cd82;
+}
+
+.link-delivery {
+  display: flex;
+  gap: 24px;
+}
+
+.link-delivery .div1 {
+  width: 40%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link-delivery .div2 {
+  width: 30%;
+  justify-content: center;
+  align-items: center;
+}
+
+.link-delivery .div3 {
+  width: 30%;
+  justify-content: center;
+  align-items: center;
+}
+
+.link-delivery>div {
+  background-color: var(--white-color);
+  border-radius: 20px;
+  padding: 36px;
+  position: relative;
+  display: flex;
+}
+
+.link-delivery>div .floating-text {
+  position: absolute;
+  top: -5%;
+  left: 50%;
+  translate: -50%;
+  padding: 4px 14px;
+  border-radius: 99px;
+  background-color: #fffaee;
+  width: max-content;
+  text-align: center;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.link-delivery .div1>div {
+  width: 90px;
+  height: 90px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  background-color: var(--link-delivery-card-bg);
+  color: var(--white-color);
+}
+
+.link-delivery .div1>div .key {
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+.link-delivery .div1>div .value {
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
+
+.link-delivery .div2>div,
+.link-delivery .div3>div {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 90px;
+  align-items: center;
+}
+
+.link-delivery .div2>div .value,
+.link-delivery .div3>div .value {
+  font-size: 28px;
+  color: var(--primary-color);
+  line-height: 28px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
+
+.link-delivery .div2>div>div,
+.link-delivery .div3>div>div {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  bottom: -10%;
+  left: 50%;
+  translate: -50%;
+}
+
+.link-delivery .div2>div>div .key,
+.link-delivery .div3>div>div .key {
+  font-size: 12px;
+  color: var(--text-content);
+  line-height: 12px;
+  font-weight: 500;
+  margin: 0;
+  width: max-content;
+  padding: 0;
 }
