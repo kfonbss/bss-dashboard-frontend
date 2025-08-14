@@ -819,3 +819,346 @@ if (districtWiseActivePartnerChart) {
     plugins: [thresholdPlugin]
   });
 }
+
+const ticketCreateVolumeByWeekChart = document.getElementById('ticketCreateVolumeByWeekChart');
+if (ticketCreateVolumeByWeekChart) {
+  const ticketCreateVolumeByWeekChartCtx = ticketCreateVolumeByWeekChart.getContext('2d');
+
+  const lineShadow = {
+    id: 'lineShadow',
+    beforeDatasetsDraw(chart) {
+      const { ctx } = chart;
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,.18)';
+      ctx.shadowBlur = 12;
+      ctx.shadowOffsetY = 6;
+    },
+    afterDatasetsDraw(chart) {
+      chart.ctx.restore();
+    }
+  };
+
+  const maroon = getComputedStyle(document.documentElement).getPropertyValue('--maroon').trim() || '#7A0C38';
+  const axis = getComputedStyle(document.documentElement).getPropertyValue('--axis').trim() || '#111827';
+  const grid = getComputedStyle(document.documentElement).getPropertyValue('--grid').trim() || 'rgba(0,0,0,.12)';
+
+  // Shape tuned to resemble your screenshot
+  const dataY = [20, 760, 40, 560, 30];
+
+  new Chart(ticketCreateVolumeByWeekChartCtx, {
+    type: 'line',
+    data: {
+      labels: ['8 Jul 2025', '9 Jul 2025', '10 Jul 2025', '11 Jul 2025', '12 Jul 2025'],
+      datasets: [
+        {
+          label: 'Example',
+          data: dataY,
+          borderColor: maroon,
+          borderWidth: 4,
+          tension: 0.45, // wavy curve
+          fill: false,
+          pointRadius: 0, // hidden points
+          // Hollow ring on hover
+          pointHoverRadius: 7,
+          pointHoverBackgroundColor: '#ffffff',
+          pointHoverBorderColor: maroon,
+          pointHoverBorderWidth: 4
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'nearest', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          usePointStyle: true,
+          displayColors: true,
+          backgroundColor: '#fff',
+          titleColor: '#111827',
+          bodyColor: '#111827',
+          borderColor: 'rgba(0,0,0,.08)',
+          borderWidth: 1,
+          padding: 12,
+          callbacks: {
+            // Title shows the category label (e.g., "11 Jul 2025")
+            title: (items) => items[0].label,
+            labelPointStyle: (ctx) => ({
+              pointStyle: 'circle',
+              rotation: 0,
+              borderWidth: 0,
+              backgroundColor: ctx.dataset.borderColor
+            }),
+            label: (ctx) => ` ${ctx.dataset.label} : ${ctx.parsed.y}`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: {
+            color: axis,
+            font: { size: 14 }
+          }
+        },
+        y: {
+          beginAtZero: true,
+          suggestedMax: 2000,
+          ticks: {
+            color: axis
+          },
+          grid: {
+            drawBorder: false,
+            color: (gctx) => (gctx.tick.value === 0 ? 'transparent' : grid),
+            borderDash: [2, 6]
+          }
+        }
+      }
+    },
+    plugins: [lineShadow]
+  });
+}
+
+const ticketCloserByWeekChart = document.getElementById('ticketCloserByWeekChart');
+if (ticketCloserByWeekChart) {
+  const ticketCloserByWeekChartCtx = ticketCloserByWeekChart.getContext('2d');
+
+  const lineShadow = {
+    id: 'lineShadow',
+    beforeDatasetsDraw(chart) {
+      const { ctx } = chart;
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,.18)';
+      ctx.shadowBlur = 12;
+      ctx.shadowOffsetY = 6;
+    },
+    afterDatasetsDraw(chart) {
+      chart.ctx.restore();
+    }
+  };
+
+  const maroon = getComputedStyle(document.documentElement).getPropertyValue('--maroon').trim() || '#7A0C38';
+  const axis = getComputedStyle(document.documentElement).getPropertyValue('--axis').trim() || '#111827';
+  const grid = getComputedStyle(document.documentElement).getPropertyValue('--grid').trim() || 'rgba(0,0,0,.12)';
+
+  // Shape tuned to resemble your screenshot
+  const dataY = [20, 760, 40, 560, 30];
+
+  new Chart(ticketCloserByWeekChartCtx, {
+    type: 'line',
+    data: {
+      labels: ['8 Jul 2025', '9 Jul 2025', '10 Jul 2025', '11 Jul 2025', '12 Jul 2025'],
+      datasets: [
+        {
+          label: 'Example',
+          data: dataY,
+          borderColor: maroon,
+          borderWidth: 4,
+          tension: 0.45, // wavy curve
+          fill: false,
+          pointRadius: 0, // hidden points
+          // Hollow ring on hover
+          pointHoverRadius: 7,
+          pointHoverBackgroundColor: '#ffffff',
+          pointHoverBorderColor: maroon,
+          pointHoverBorderWidth: 4
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'nearest', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          usePointStyle: true,
+          displayColors: true,
+          backgroundColor: '#fff',
+          titleColor: '#111827',
+          bodyColor: '#111827',
+          borderColor: 'rgba(0,0,0,.08)',
+          borderWidth: 1,
+          padding: 12,
+          callbacks: {
+            // Title shows the category label (e.g., "11 Jul 2025")
+            title: (items) => items[0].label,
+            labelPointStyle: (ctx) => ({
+              pointStyle: 'circle',
+              rotation: 0,
+              borderWidth: 0,
+              backgroundColor: ctx.dataset.borderColor
+            }),
+            label: (ctx) => ` ${ctx.dataset.label} : ${ctx.parsed.y}`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: {
+            color: axis,
+            font: { size: 14 }
+          }
+        },
+        y: {
+          beginAtZero: true,
+          suggestedMax: 2000,
+          ticks: {
+            color: axis
+          },
+          grid: {
+            drawBorder: false,
+            color: (gctx) => (gctx.tick.value === 0 ? 'transparent' : grid),
+            borderDash: [2, 6]
+          }
+        }
+      }
+    },
+    plugins: [lineShadow]
+  });
+}
+
+const overAllTicketProgressWeekChart = document.getElementById('overAllTicketProgressWeekChart');
+if (overAllTicketProgressWeekChart) {
+  const overAllTicketProgressWeekChartCtx = overAllTicketProgressWeekChart.getContext('2d');
+
+  // subtle line drop-shadow (optional)
+  const lineShadow = {
+    id: 'lineShadow',
+    beforeDatasetsDraw(chart) {
+      const { ctx } = chart;
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,.18)';
+      ctx.shadowBlur = 12;
+      ctx.shadowOffsetY = 6;
+    },
+    afterDatasetsDraw(chart) {
+      chart.ctx.restore();
+    }
+  };
+
+  const COLORS = {
+    magenta: getComputedStyle(document.documentElement).getPropertyValue('--magenta').trim() || '#E91E63',
+    amber: getComputedStyle(document.documentElement).getPropertyValue('--amber').trim() || '#F59E0B',
+    teal: getComputedStyle(document.documentElement).getPropertyValue('--teal').trim() || '#10B981',
+    axis: getComputedStyle(document.documentElement).getPropertyValue('--axis').trim() || '#111827',
+    grid: getComputedStyle(document.documentElement).getPropertyValue('--grid').trim() || 'rgba(0,0,0,.12)',
+    hi: getComputedStyle(document.documentElement).getPropertyValue('--highlight').trim() || '#7A0C38'
+  };
+
+  // Sample values shaped to resemble your screenshot
+  const closed = [25, 15, 55, 40, 105, 60, 20, 80, 190]; // magenta
+  const inProgress = [12, 7, 22, 15, 60, 35, 10, 50, 100]; // amber
+  const open = [5, 0, 18, 35, 12, 28, 60, 22, 70]; // teal
+
+  new Chart(overAllTicketProgressWeekChartCtx, {
+    type: 'line',
+    data: {
+      labels: [
+        '8 JUL 2025',
+        '9 JUL 2025',
+        '10 JUL 2025',
+        '11 JUL 2025',
+        '12 JUL 2025',
+        '13 JUL 2025',
+        '14 JUL 2025',
+        '15 JUL 2025',
+        '16 JUL 2025'
+      ],
+      datasets: [
+        {
+          label: 'InProgress',
+          data: inProgress,
+          borderColor: COLORS.amber,
+          borderWidth: 4,
+          tension: 0.45,
+          fill: false,
+          pointRadius: 0,
+          pointHoverRadius: 7,
+          pointHoverBackgroundColor: '#ffffff',
+          pointHoverBorderColor: COLORS.amber,
+          pointHoverBorderWidth: 4
+        },
+        {
+          label: 'Open',
+          data: open,
+          borderColor: COLORS.teal,
+          borderWidth: 4,
+          tension: 0.45,
+          fill: false,
+          pointRadius: 0,
+          pointHoverRadius: 7,
+          pointHoverBackgroundColor: '#ffffff',
+          pointHoverBorderColor: COLORS.teal,
+          pointHoverBorderWidth: 4
+        },
+        {
+          label: 'Closed',
+          data: closed,
+          borderColor: COLORS.magenta,
+          borderWidth: 4,
+          tension: 0.45,
+          fill: false,
+          pointRadius: 0,
+          pointHoverRadius: 7, // hollow ring on hover
+          pointHoverBackgroundColor: '#ffffff',
+          pointHoverBorderColor: COLORS.magenta,
+          pointHoverBorderWidth: 4
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          usePointStyle: true,
+          displayColors: true,
+          backgroundColor: '#fff',
+          titleColor: COLORS.axis,
+          bodyColor: COLORS.axis,
+          borderColor: 'rgba(0,0,0,.08)',
+          borderWidth: 1,
+          padding: 12,
+          callbacks: {
+            title: (items) => items[0].label,
+            labelPointStyle: (ctx) => ({
+              pointStyle: 'circle',
+              rotation: 0,
+              borderWidth: 0,
+              backgroundColor: ctx.dataset.borderColor
+            }),
+            label: (ctx) => ` ${ctx.dataset.label}: ${ctx.parsed.y}`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: {
+            color: (tctx) => (tctx.tick.label === '14 JUL 2025' ? COLORS.hi : COLORS.axis),
+            font: (tctx) => ({ size: 14, weight: tctx.tick.label === '14 JUL 2025' ? '700' : '400' })
+          }
+        },
+        y: {
+          beginAtZero: true,
+          suggestedMax: 200,
+          ticks: {
+            stepSize: 50,
+            color: COLORS.axis
+          },
+          grid: {
+            drawBorder: false,
+            color: (gctx) => (gctx.tick.value === 0 ? 'transparent' : COLORS.grid),
+            borderDash: [2, 6]
+          }
+        }
+      }
+    },
+    plugins: [lineShadow]
+  });
+}
