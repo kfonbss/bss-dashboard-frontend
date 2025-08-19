@@ -393,7 +393,7 @@
 
       <div class="new-activation">
         <div class="header">
-          <p>Revenue Generated</p>
+          <p class="head">Revenue Generated</p>
           <div>
             <select class="chart-table-dropdown">
               <option value="">Sub Type</option>
@@ -437,13 +437,82 @@
             </select>
           </div>
         </div>
-        <canvas height="400" id="newSubsChart"></canvas>
+        <div class="chart-card">
+          <canvas height="400" id="revenueGeneratedChart"></canvas>
+        </div>
       </div>
 
       <div class="new-activation">
         <div class="header">
-          <p class="head">New Activation</p>
+          <p class="head">Revenue Generation vs Collection by Segment</p>
+        </div>
+        <div class="table-card" style="--header-bg: #C0CC08">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Subscriber Type</th>
+                <th>Generated</th>
+                <th>Collected</th>
+                <th>Pending</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TVM</td>
+                <td>5000</td>
+                <td>5000</td>
+                <td>5000</td>
+              </tr>
+              <tr>
+                <td>TVM</td>
+                <td>5000</td>
+                <td>5000</td>
+                <td>5000</td>
+              </tr>
+              <tr>
+                <td>TVM</td>
+                <td>5000</td>
+                <td>5000</td>
+                <td>5000</td>
+              </tr>
+              <tr>
+                <td>TVM</td>
+                <td>5000</td>
+                <td>5000</td>
+                <td>5000</td>
+              </tr>
+              <tr>
+                <td>TVM</td>
+                <td>5000</td>
+                <td>5000</td>
+                <td>5000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-footer">
+          <div class="entries">Showing <strong>1</strong> to <strong>05</strong> of <strong>05</strong> entries</div>
+
+          <nav class="pagination" aria-label="Pagination">
+            <button class="page-btn" aria-label="Previous page" disabled>«</button>
+            <div class="page-current" aria-current="page">1</div>
+            <button class="page-btn" aria-label="Next page">»</button>
+          </nav>
+        </div>
+      </div>
+
+      <div class="new-activation">
+        <div class="header">
+          <p class="head">Budget vs Actual</p>
           <div>
+            <select class="chart-table-dropdown">
+              <option value="">Sub Type</option>
+              <option value="apple">Apple</option>
+              <option value="banana">Banana</option>
+              <option value="orange">Orange</option>
+              <option value="mango">Mango</option>
+            </select>
             <div class="filter-dropdown" data-filter-id="products">
               <button class="filter-btn" type="button" aria-haspopup="menu" aria-expanded="false">
                 <span class="icon"><svg width="23" height="23" viewBox="0 0 23 23" fill="none"
@@ -479,16 +548,28 @@
             </select>
           </div>
         </div>
-        <div class="table-card" style="--header-bg: #de3b7a">
+        <div class="chart-card">
+          <canvas height="400" id="budgetActualChart"></canvas>
+        </div>
+      </div>
+
+      <div class="new-activation">
+        <div class="header">
+          <p class="head">Finance Detailed</p>
+        </div>
+        <div class="table-card" style="--header-bg: #23BACD">
           <table class="table">
             <thead>
               <tr>
-                <th>District</th>
-                <th>Today</th>
-                <th>Yesterday</th>
-                <th>Current Month</th>
-                <th>Last Month</th>
-                <th>Till Now</th>
+                <th>Subtype</th>
+                <th>Budget</th>
+                <th>Invoice Generated</th>
+                <th>Collected</th>
+                <th>Pending</th>
+                <th>0-30</th>
+                <th>&lt;60</th>
+                <th>&lt;90</th>
+                <th>&lt;180</th>
               </tr>
             </thead>
             <tbody>
@@ -498,7 +579,10 @@
                 <td>5000</td>
                 <td>5000</td>
                 <td>5000</td>
-                <td>Write content</td>
+                <td>5000</td>
+                <td>5000</td>
+                <td>5000</td>
+                <td>5000</td>
               </tr>
               <tr>
                 <td>2</td>
@@ -506,7 +590,10 @@
                 <td>5000</td>
                 <td>5000</td>
                 <td>5000</td>
-                <td>Write content</td>
+                <td>5000</td>
+                <td>5000</td>
+                <td>5000</td>
+                <td>5000</td>
               </tr>
               <tr>
                 <td>3</td>
@@ -514,7 +601,10 @@
                 <td>5000</td>
                 <td>5000</td>
                 <td>5000</td>
-                <td>Write content</td>
+                <td>5000</td>
+                <td>5000</td>
+                <td>5000</td>
+                <td>5000</td>
               </tr>
               <tr>
                 <td>4</td>
@@ -522,7 +612,10 @@
                 <td>5000</td>
                 <td>5000</td>
                 <td>5000</td>
-                <td>Write content</td>
+                <td>5000</td>
+                <td>5000</td>
+                <td>5000</td>
+                <td>5000</td>
               </tr>
               <tr>
                 <td>5</td>
@@ -530,7 +623,10 @@
                 <td>5000</td>
                 <td>5000</td>
                 <td>5000</td>
-                <td>Write content</td>
+                <td>5000</td>
+                <td>5000</td>
+                <td>5000</td>
+                <td>5000</td>
               </tr>
             </tbody>
           </table>
@@ -586,7 +682,7 @@
             </select>
           </div>
         </div>
-        <div class="table-card" style="--header-bg: #23bacd">
+        <div class="table-card" style="--header-bg: #DE3B7A">
           <table class="table">
             <thead>
               <tr>
@@ -669,6 +765,56 @@
             <div class="page-current" aria-current="page">1</div>
             <button class="page-btn" aria-label="Next page">»</button>
           </nav>
+        </div>
+      </div>
+
+      <div class="performance-container">
+        <div class="new-activation">
+          <div class="header">
+            <p class="head">Top 5 Performed District</p>
+          </div>
+          <div class="table-card" style="--header-bg: #C0CC08">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>District</th>
+                  <th>Revenue</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>TVM</td>
+                  <td>5000</td>
+                </tr>
+                <tr>
+                  <td>TVM</td>
+                  <td>5000</td>
+                </tr>
+                <tr>
+                  <td>TVM</td>
+                  <td>5000</td>
+                </tr>
+                <tr>
+                  <td>TVM</td>
+                  <td>5000</td>
+                </tr>
+                <tr>
+                  <td>TVM</td>
+                  <td>5000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-footer">
+            <div class="entries">Showing <strong>1</strong> to <strong>05</strong> of <strong>05</strong> entries</div>
+
+            <nav class="pagination" aria-label="Pagination">
+              <button class="page-btn" aria-label="Previous page" disabled>«</button>
+              <div class="page-current" aria-current="page">1</div>
+              <button class="page-btn" aria-label="Next page">»</button>
+            </nav>
+          </div>
         </div>
       </div>
 

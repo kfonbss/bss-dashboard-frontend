@@ -221,102 +221,104 @@ if (![undefined, null, ''].includes(newSubsChart)) {
   });
 }
 
-const dropdowns = Array.from(document.querySelectorAll('.filter-dropdown'));
+(function () {
+  const dropdowns = Array.from(document.querySelectorAll('.filter-dropdown'));
 
-function getChecks(root) {
-  return Array.from(root.querySelectorAll('.menu input[type="checkbox"]'));
-}
-function selectedValues(root) {
-  return getChecks(root)
-    .filter((cb) => cb.checked)
-    .map((cb) => cb.value);
-}
-function setCount(root) {
-  const btn = root.querySelector('.filter-btn');
-  const countEl = btn.querySelector('.count');
-  const n = selectedValues(root).length;
-  if (n) {
-    countEl.textContent = n;
-    btn.classList.add('has-count');
-  } else {
-    countEl.textContent = '0';
-    btn.classList.remove('has-count');
+  function getChecks(root) {
+    return Array.from(root.querySelectorAll('.menu input[type="checkbox"]'));
   }
-}
-function openMenu(root) {
-  closeAll();
-  const btn = root.querySelector('.filter-btn');
-  const menu = root.querySelector('.menu');
-  menu.classList.add('open');
-  btn.setAttribute('aria-expanded', 'true');
-}
-function closeMenu(root) {
-  const btn = root.querySelector('.filter-btn');
-  const menu = root.querySelector('.menu');
-  menu.classList.remove('open');
-  btn.setAttribute('aria-expanded', 'false');
-}
-function closeAll() {
-  dropdowns.forEach(closeMenu);
-}
+  function selectedValues(root) {
+    return getChecks(root)
+      .filter((cb) => cb.checked)
+      .map((cb) => cb.value);
+  }
+  function setCount(root) {
+    const btn = root.querySelector('.filter-btn');
+    const countEl = btn.querySelector('.count');
+    const n = selectedValues(root).length;
+    if (n) {
+      countEl.textContent = n;
+      btn.classList.add('has-count');
+    } else {
+      countEl.textContent = '0';
+      btn.classList.remove('has-count');
+    }
+  }
+  function openMenu(root) {
+    closeAll();
+    const btn = root.querySelector('.filter-btn');
+    const menu = root.querySelector('.menu');
+    menu.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+  function closeMenu(root) {
+    const btn = root.querySelector('.filter-btn');
+    const menu = root.querySelector('.menu');
+    menu.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+  function closeAll() {
+    dropdowns.forEach(closeMenu);
+  }
 
-// Init each dropdown
-dropdowns.forEach((root) => {
-  const btn = root.querySelector('.filter-btn');
-  const menu = root.querySelector('.menu');
-  const clearBtn = root.querySelector('.clear');
-  const applyBtn = root.querySelector('.apply');
+  // Init each dropdown
+  dropdowns.forEach((root) => {
+    const btn = root.querySelector('.filter-btn');
+    const menu = root.querySelector('.menu');
+    const clearBtn = root.querySelector('.clear');
+    const applyBtn = root.querySelector('.apply');
 
-  setCount(root);
-
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isOpen = menu.classList.contains('open');
-    isOpen ? closeMenu(root) : openMenu(root);
-  });
-
-  // Keep clicks inside menu from closing it
-  menu.addEventListener('click', (e) => e.stopPropagation());
-
-  // Clear
-  clearBtn.addEventListener('click', () => {
-    getChecks(root).forEach((cb) => (cb.checked = false));
     setCount(root);
-    // Emit immediate change if you want live updates
-    root.dispatchEvent(
-      new CustomEvent('filterchange', {
-        detail: { id: root.dataset.filterId || null, values: selectedValues(root), action: 'clear' },
-        bubbles: true
-      })
-    );
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = menu.classList.contains('open');
+      isOpen ? closeMenu(root) : openMenu(root);
+    });
+
+    // Keep clicks inside menu from closing it
+    menu.addEventListener('click', (e) => e.stopPropagation());
+
+    // Clear
+    clearBtn.addEventListener('click', () => {
+      getChecks(root).forEach((cb) => (cb.checked = false));
+      setCount(root);
+      // Emit immediate change if you want live updates
+      root.dispatchEvent(
+        new CustomEvent('filterchange', {
+          detail: { id: root.dataset.filterId || null, values: selectedValues(root), action: 'clear' },
+          bubbles: true
+        })
+      );
+    });
+
+    // Apply
+    applyBtn.addEventListener('click', () => {
+      setCount(root);
+      root.dispatchEvent(
+        new CustomEvent('filterchange', {
+          detail: { id: root.dataset.filterId || null, values: selectedValues(root), action: 'apply' },
+          bubbles: true
+        })
+      );
+      closeMenu(root);
+    });
+
+    // Optional: live count as user checks boxes
+    menu.addEventListener('change', () => setCount(root));
   });
 
-  // Apply
-  applyBtn.addEventListener('click', () => {
-    setCount(root);
-    root.dispatchEvent(
-      new CustomEvent('filterchange', {
-        detail: { id: root.dataset.filterId || null, values: selectedValues(root), action: 'apply' },
-        bubbles: true
-      })
-    );
-    closeMenu(root);
+  // Global outside-click + Escape to close
+  document.addEventListener('click', closeAll);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAll();
   });
 
-  // Optional: live count as user checks boxes
-  menu.addEventListener('change', () => setCount(root));
-});
-
-// Global outside-click + Escape to close
-document.addEventListener('click', closeAll);
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeAll();
-});
-
-// Example listener (remove in production)
-document.addEventListener('filterchange', (e) => {
-  console.log('Filter changed:', e.detail);
-});
+  // Example listener (remove in production)
+  document.addEventListener('filterchange', (e) => {
+    console.log('Filter changed:', e.detail);
+  });
+})();
 
 // Values are in thousands to match tick labels (0..100k)
 const barData = [62, 12, 8, 18, 14, 26, 11, 31, 13, 26, 12, 27, 7, 16];
@@ -1150,6 +1152,177 @@ if (overAllTicketProgressWeekChart) {
           ticks: {
             stepSize: 50,
             color: COLORS.axis
+          },
+          grid: {
+            drawBorder: false,
+            color: (gctx) => (gctx.tick.value === 0 ? 'transparent' : COLORS.grid),
+            borderDash: [2, 6]
+          }
+        }
+      }
+    },
+    plugins: [lineShadow]
+  });
+}
+
+const revenueGeneratedChart = document.getElementById('revenueGeneratedChart');
+if (![undefined, null, ''].includes(revenueGeneratedChart)) {
+  const revenueGeneratedChartCtx = revenueGeneratedChart.getContext('2d');
+
+  new Chart(revenueGeneratedChartCtx, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      datasets: [
+        {
+          label: 'Signal',
+          data: labels.map((x) => {
+            const rad = (x / 60) * Math.PI * 4; // 2 full waves
+            return 50 + 18 * Math.sin(rad) + 6 * Math.sin(rad * 2);
+          }),
+          borderColor: '#8D0247',
+          borderWidth: 3.5,
+          fill: false,
+          tension: 0.5, // makes it wavy
+          pointRadius: 0, // no dots
+          cubicInterpolationMode: 'monotone' // smooth curve
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(12, 18, 32, 0.9)',
+          titleColor: '#cfe6ff',
+          bodyColor: '#e6f5ff',
+          borderColor: 'rgba(255,255,255,.2)',
+          borderWidth: 1
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: '#7f93b6' }
+        },
+        y: {
+          grid: { color: 'rgba(255,255,255,0.06)' },
+          ticks: { color: '#7f93b6' }
+        }
+      }
+    }
+  });
+}
+
+const budgetActualChart = document.getElementById('budgetActualChart');
+if (![undefined, null, ''].includes(budgetActualChart)) {
+  const budgetActualChartCtx = budgetActualChart.getContext('2d');
+
+  const lineShadow = {
+    id: 'lineShadow',
+    beforeDatasetsDraw(chart) {
+      const { ctx } = chart;
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,.15)';
+      ctx.shadowBlur = 10;
+      ctx.shadowOffsetY = 6;
+    },
+    afterDatasetsDraw(chart) {
+      chart.ctx.restore();
+    }
+  };
+
+  const COLORS = {
+    budget: getComputedStyle(document.documentElement).getPropertyValue('--budget').trim() || '#7A0C38',
+    actual: getComputedStyle(document.documentElement).getPropertyValue('--actual').trim() || '#F59E0B',
+    axis: getComputedStyle(document.documentElement).getPropertyValue('--axis').trim() || '#111827',
+    grid: getComputedStyle(document.documentElement).getPropertyValue('--grid').trim() || 'rgba(0,0,0,.12)',
+    hi: getComputedStyle(document.documentElement).getPropertyValue('--highlight').trim() || '#7A0C38'
+  };
+
+  // Category labels
+  const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  // Example values
+  const budget = [2, 6, 4, 10, 6, 12, 7, 11, 6, 8, 9, 12]; // in CR
+  const actual = [1.5, 3, 2, 5, 2.5, 9, 5, 7, 4, 5, 6, 7]; // in CR
+
+  new Chart(budgetActualChartCtx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Budget',
+          data: budget,
+          borderColor: COLORS.budget,
+          borderWidth: 3,
+          tension: 0.45,
+          fill: false,
+          pointRadius: 0,
+          pointHoverRadius: 7,
+          pointHoverBackgroundColor: '#ffffff',
+          pointHoverBorderColor: COLORS.budget,
+          pointHoverBorderWidth: 3
+        },
+        {
+          label: 'Actual',
+          data: actual,
+          borderColor: COLORS.actual,
+          borderWidth: 3,
+          tension: 0.45,
+          fill: false,
+          pointRadius: 0,
+          pointHoverRadius: 7,
+          pointHoverBackgroundColor: '#ffffff',
+          pointHoverBorderColor: COLORS.actual,
+          pointHoverBorderWidth: 3
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          usePointStyle: true,
+          displayColors: true,
+          backgroundColor: '#fff',
+          titleColor: COLORS.axis,
+          bodyColor: COLORS.axis,
+          borderColor: 'rgba(0,0,0,.08)',
+          borderWidth: 1,
+          padding: 12,
+          callbacks: {
+            title: (items) => `${items[0].label} 2024`,
+            labelPointStyle: (ctx) => ({
+              pointStyle: 'circle',
+              rotation: 0,
+              borderWidth: 0,
+              backgroundColor: ctx.dataset.borderColor
+            }),
+            label: (ctx) => ` ${ctx.dataset.label} : $${ctx.parsed.y}k`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: {
+            color: (tctx) => (tctx.tick.label === 'Jul' ? COLORS.hi : COLORS.axis),
+            font: (tctx) => ({ size: 14, weight: tctx.tick.label === 'Jul' ? '700' : '400' })
+          }
+        },
+        y: {
+          beginAtZero: true,
+          suggestedMax: 50,
+          ticks: {
+            color: COLORS.axis,
+            callback: (v) => (v === 0 ? '0' : `${v} CR`)
           },
           grid: {
             drawBorder: false,
