@@ -109,7 +109,6 @@ chartIds.forEach((id, index) => {
 });
 
 const liveSubscribersChart = document.getElementById('liveSubscribersChart');
-
 if (![undefined, null, ''].includes(liveSubscribersChart)) {
   const liveSubscribersChartCtx = getContext('2d');
 
@@ -1335,3 +1334,83 @@ if (![undefined, null, ''].includes(budgetActualChart)) {
     plugins: [lineShadow]
   });
 }
+
+function makeMiniChart(selector, data) {
+  const canvas = document.querySelector(selector);
+  const ctx = canvas.getContext('2d');
+
+  // Build a vertical gradient that adapts to canvas height
+  function makeGradient() {
+    const g = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    g.addColorStop(
+      0.0,
+      getComputedStyle(document.documentElement).getPropertyValue('--teal-20').trim() || 'rgba(16,185,165,.20)'
+    );
+    g.addColorStop(
+      1.0,
+      getComputedStyle(document.documentElement).getPropertyValue('--teal-00').trim() || 'rgba(16,185,165,0)'
+    );
+    return g;
+  }
+  let gradient = makeGradient();
+
+  const teal = getComputedStyle(document.documentElement).getPropertyValue('--teal').trim() || '#10B9A5';
+
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: data.map((_, i) => i + 1), // simple indices; hidden anyway
+      datasets: [
+        {
+          data,
+          borderColor: teal,
+          backgroundColor: gradient,
+          borderWidth: 3,
+          tension: 0.5, // wavy
+          cubicInterpolationMode: 'monotone',
+          fill: true,
+          pointRadius: 0, // no points
+          clip: 10 // keep stroke inside plot
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 600 },
+      plugins: { legend: { display: false }, tooltip: { enabled: false } },
+      layout: { padding: { top: 6, right: 6, bottom: 0, left: 6 } },
+      scales: {
+        x: { display: false, grid: { display: false } },
+        y: {
+          display: false,
+          grid: { display: false },
+          // nice vertical breathing room
+          suggestedMin: Math.min(...data) - 5,
+          suggestedMax: Math.max(...data) + 5
+        }
+      }
+    }
+  });
+
+  // Recreate gradient on resize for crisp fade
+  new ResizeObserver(() => {
+    gradient = makeGradient();
+    chart.data.datasets[0].backgroundColor = gradient;
+    chart.update('none');
+  }).observe(canvas);
+
+  return chart;
+}
+
+// Example small “wave” arrays (use your real numbers)
+const d1 = Array.from({ length: 24 }, (_, i) => 12 + 6 * Math.sin(i / 2) + 2 * Math.sin(i / 5));
+const d2 = Array.from({ length: 24 }, (_, i) => 10 + 7 * Math.sin(i / 2 + 0.6) + 1.5 * Math.sin(i / 4));
+const d3 = Array.from({ length: 24 }, (_, i) => 11 + 6.5 * Math.sin(i / 2 + 1.2) + 2 * Math.sin(i / 6));
+const d4 = Array.from({ length: 24 }, (_, i) => 10.5 + 6 * Math.sin(i / 2 + 1.8) + 1.8 * Math.sin(i / 5));
+
+// Init four charts
+makeMiniChart('#c1', d1);
+makeMiniChart('#c2', d2);
+makeMiniChart('#c3', d3);
+makeMiniChart('#c4', d4);

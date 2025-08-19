@@ -2614,7 +2614,7 @@ td .dist-box .dist-name-box span {
 }
 
 .revenue-container .div10 .right div {
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
   height: 32px;
   display: flex;
   justify-content: space-between;
@@ -2625,7 +2625,7 @@ td .dist-box .dist-name-box span {
 }
 
 .revenue-container .div10 .right div {
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
   height: 32px;
   display: flex;
   justify-content: space-between;
@@ -2638,3 +2638,69 @@ td .dist-box .dist-name-box span {
   line-height: 14px;
   color: #000;
 }
+
+.performance-container {
+  display: flex;
+  gap: 26px;
+  width: 100%;
+}
+
+.performance-container .new-activation {
+  width: 30%;
+}
+
+.performance-container .arpuDetails {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+.performance-container .arpuDetails .head {
+  padding: 8px 0;
+  margin: 0;
+  font-size: 22px;
+  line-height: 22px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.performance-container .arpuDetails>div {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 26px;
+  grid-row-gap: 26px;
+  width: 100%;
+}
+
+
+.performance-container .arpuDetails>div .card {
+  background: var(--white-color);
+  border-radius: 18px;
+  padding: 18px 18px 6px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  align-items: center;
+  width: 450px;
+}
+
+.performance-container .arpuDetails>div .meta h4 {
+  margin: 0 0 10px;
+  color: #14213D;
+  font-weight: 600
+}
+
+.performance-container .arpuDetails>div .meta .num {
+  margin: 0;
+  color: #8D0247;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: .3px
+}
+
+.performance-container .arpuDetails>div .spark {
+  width: 250px;
+  height: 90px;
+}
+
+.performance-container .arpuDetails>div {}
