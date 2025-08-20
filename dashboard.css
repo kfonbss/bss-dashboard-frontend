@@ -2643,14 +2643,18 @@ td .dist-box .dist-name-box span {
   display: flex;
   gap: 26px;
   width: 100%;
+  height: fit-content;
 }
 
 .performance-container .new-activation {
   width: 30%;
+  height: fit-content;
 }
 
 .performance-container .arpuDetails {
   width: 70%;
+  height: 100%;
+  gap: 26px;
   display: flex;
   flex-direction: column;
 }
@@ -2671,6 +2675,7 @@ td .dist-box .dist-name-box span {
   grid-column-gap: 26px;
   grid-row-gap: 26px;
   width: 100%;
+  height: 100%;
 }
 
 .performance-container .arpuDetails>div .card {
