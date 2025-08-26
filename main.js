@@ -110,7 +110,7 @@ chartIds.forEach((id, index) => {
 
 const liveSubscribersChart = document.getElementById('liveSubscribersChart');
 if (![undefined, null, ''].includes(liveSubscribersChart)) {
-  const liveSubscribersChartCtx = getContext('2d');
+  const liveSubscribersChartCtx = liveSubscribersChart.getContext('2d');
 
   new Chart(liveSubscribersChartCtx, {
     type: 'doughnut',
@@ -1337,6 +1337,9 @@ if (![undefined, null, ''].includes(budgetActualChart)) {
 
 function makeMiniChart(selector, data) {
   const canvas = document.querySelector(selector);
+
+  if ([undefined, null, ''].includes(canvas)) return null;
+
   const ctx = canvas.getContext('2d');
 
   // Build a vertical gradient that adapts to canvas height

@@ -175,8 +175,37 @@ html {
   position: sticky;
   padding-bottom: 36px;
   top: 0;
+  z-index: 999;
   width: calc(100% - 4px);
   background-color: var(--secondary-color);
+}
+
+.sticky-container:has(> :nth-child(2)) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 24px;
+}
+
+.sticky-container:has(> :nth-child(2)) .profile-head {
+  height: fit-content;
+  background-color: transparent;
+  justify-content: flex-end;
+  padding-top: 0;
+}
+
+.sticky-container:has(> :nth-child(2)) .profile-head .notification,
+.sticky-container:has(> :nth-child(2)) .profile-head>div button {
+  box-shadow: none;
+  background-color: var(--white-color);
+}
+
+.sticky-container:has(> :nth-child(2)) .profile-head .notification path {
+  fill: #bcbcbc;
+}
+
+.sticky-container:has(> :nth-child(2)) .profile-head .profile path {
+  fill: var(--primary-color);
 }
 
 .sticky-header {
@@ -962,71 +991,7 @@ td .dist-box .dist-name-box span {
   font-weight: 400;
 }
 
-.common-layout {
-  position: relative;
-  height: calc(100vh - 48px);
-  padding: 24px 0 24px 24px;
-  display: flex;
-  background-color: var(--secondary-color);
-  gap: 24px;
-}
-
-.common-layout .side-menu-container {
-  height: calc(100vh - 48px - 48px);
-}
-
-.right-container {
-  width: calc(100% - 24px);
-  padding-right: 24px;
-  height: calc(100vh - 48px);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  gap: 24px;
-  overflow: auto;
-}
-
-.right-container .sticky-header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 24px;
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  background-color: var(--secondary-color);
-}
-
-.right-container .sticky-header-container .sticky-container {
-  padding: 0;
-}
-
-.right-container .sticky-header-container .profile-head {
-  height: fit-content;
-  background-color: transparent;
-  justify-content: flex-end;
-  padding-top: 0;
-}
-
-.right-container .sticky-header-container .profile-head .notification,
-.right-container .sticky-header-container .profile-head>div button {
-  box-shadow: none;
-  background-color: var(--white-color);
-}
-
-.right-container .sticky-header-container .profile-head .notification path {
-  fill: #bcbcbc;
-}
-
-.right-container .sticky-header-container .profile-head .profile path {
-  fill: var(--primary-color);
-}
-
-.right-container .greeting-text {
-  margin: 0;
-}
-
-.right-container .active-list-container {
+.active-list-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr;
@@ -2405,6 +2370,7 @@ td .dist-box .dist-name-box span {
   height: 40px;
   border-radius: 40px;
   padding: 0px 12px;
+  margin-top: 50px;
   background: white;
   font-size: 14px;
   line-height: 14px;
