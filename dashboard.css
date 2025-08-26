@@ -75,13 +75,17 @@ html {
 
 .container {
   background-color: var(--secondary-color);
-  width: calc(100% - 410px);
+  flex: 1 1 auto;
+  min-width: 0;
   height: calc(100vh - 48px);
   padding: 24px 0 24px 24px;
-  border-top-right-radius: 28px;
-  border-bottom-right-radius: 28px;
   display: flex;
   gap: 24px;
+}
+
+.container:not(:last-child) {
+  border-top-right-radius: 28px;
+  border-bottom-right-radius: 28px;
 }
 
 .side-menu-container {
@@ -155,7 +159,7 @@ html {
 }
 
 .scrollable-container {
-  width: 102%;
+  width: 100%;
   min-height: calc(100vh - 48px);
   height: calc(100vh - 48px);
   max-height: calc(100vh - 48px);
@@ -544,7 +548,7 @@ html {
   min-height: calc(100vh - 48px);
   max-height: calc(100vh - 48px);
   overflow: auto;
-  width: 410px;
+  flex: 0 0 410px;
   padding: 0 24px 24px;
   display: flex;
   flex-direction: column;
@@ -959,7 +963,6 @@ td .dist-box .dist-name-box span {
 }
 
 .common-layout {
-  width: calc(100vw - 24px);
   position: relative;
   height: calc(100vh - 48px);
   padding: 24px 0 24px 24px;
@@ -2723,13 +2726,13 @@ td .dist-box .dist-name-box span {
   justify-content: space-between;
 }
 
-.subscribers-container {
+.government-main-container .subscribers-container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-.total-subscribers {
+.government-main-container .total-subscribers {
   background: #de3b7a;
   color: #fff;
   padding: 1rem 1.5rem;
@@ -2741,19 +2744,19 @@ td .dist-box .dist-name-box span {
   height: 41px;
 }
 
-.total-count {
+.government-main-container .total-count {
   background: rgba(255, 255, 255, 0.2);
   padding: 5px 40px;
   border-radius: 20px;
 }
 
-.subscriber-status {
+.government-main-container .subscriber-status {
   display: flex;
   gap: 1rem;
 }
 
-.status,
-.right-status {
+.government-main-container .status,
+.government-main-container .right-status {
   flex: 1;
   padding: 0.8rem 1rem;
   border-radius: 20px;
@@ -2763,17 +2766,17 @@ td .dist-box .dist-name-box span {
   gap: 60px;
 }
 
-.status.active {
+.government-main-container .status.active {
   background: #d4f8d4;
   color: #0a570a;
 }
 
-.status.inactive {
+.government-main-container .status.inactive {
   background: #ffe5e5;
   color: #a30000;
 }
 
-.government-list-container {
+.government-main-container .government-list-container {
   background-color: #fff;
   border-radius: 10px;
   padding: 20px;
@@ -2783,31 +2786,31 @@ td .dist-box .dist-name-box span {
   max-width: 470px;
 }
 
-.row {
+.government-main-container .row {
   display: flex;
   gap: 20px;
   justify-content: space-around;
 }
 
-.subscriber-status .status span:last-child {
+.government-main-container .subscriber-status .status span:last-child {
   color: black;
 }
 
-.right-section .right-status span:last-child {
+.government-main-container .right-section .right-status span:last-child {
   color: black;
 }
 
-.government-cards {
+.government-main-container .government-cards {
   display: contents;
 }
 
-.card {
+.government-main-container .card {
   display: flex;
   gap: 15px;
   align-items: center;
 }
 
-.left-section {
+.government-main-container .left-section {
   width: 225px;
   height: 149px;
   color: #fff;
@@ -2818,7 +2821,7 @@ td .dist-box .dist-name-box span {
   justify-content: space-around;
 }
 
-.left-section .icon {
+.government-main-container .left-section .icon {
   width: 40px;
   height: 40px;
   background: white;
@@ -2826,64 +2829,64 @@ td .dist-box .dist-name-box span {
   margin: 0 auto 10px;
 }
 
-.left-section .label {
+.government-main-container .left-section .label {
   font-size: 14px;
   opacity: 0.9;
 }
 
-.left-section .total-count-big {
+.government-main-container .left-section .total-count-big {
   font-size: 22px;
   font-weight: bold;
 }
 
-.right-section {
+.government-main-container .right-section {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.right-status.active {
+.government-main-container .right-status.active {
   background: #f5f5f5;
   color: #0a570a;
   width: 180px;
 }
 
-.right-status.inactive {
+.government-main-container .right-status.inactive {
   background: #f5f5f5;
   color: #a30000;
   width: 180px;
 }
 
-.ftth-section {
+.government-main-container .ftth-section {
   background: url('teal.svg') no-repeat center center;
   background-size: cover;
 }
 
-.ill-section {
+.government-main-container .ill-section {
   background: url('green.svg') no-repeat center center;
   background-size: cover;
 }
 
-.mpls-vpn-section {
+.government-main-container .mpls-vpn-section {
   background: url('orange.svg') no-repeat center center;
   background-size: cover;
 }
 
-.static-ip-section {
+.government-main-container .static-ip-section {
   background: url('black.svg') no-repeat center center;
   background-size: cover;
 }
 
-.public-ip-section {
+.government-main-container .public-ip-section {
   background: url('purple.svg') no-repeat center center;
   background-size: cover;
 }
 
-tbody tr:hover {
+.government-main-container tbody tr:hover {
   background-color: #f1f1f1;
 }
 
-.double-grid-card {
+.government-main-container .double-grid-card {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
