@@ -1348,7 +1348,7 @@ td .dist-box .dist-name-box span {
 
 .filter-btn .count {
   background: #fff;
-  color: var(--btn);
+  color: var(--primary-color);
   padding: 0 8px;
   border-radius: 999px;
   font-weight: 700;
@@ -1413,9 +1413,9 @@ td .dist-box .dist-name-box span {
 }
 
 .menu .actions .apply {
-  background: var(--btn);
+  background: var(--primary-color);
   color: #fff;
-  border-color: var(--btn);
+  border-color: var(--primary-color);
 }
 
 .top-dbs-and-activation {
